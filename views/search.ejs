@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Result</h1>
+    <form action="/search">
+        <input name="id" type="text" placeholder="StudentId">
+        <input type="submit">
+    </form>
+    <% if(users.length > 0){ %>
+    <ul>
+        <p>Result :</p>
+        
+            <% users.forEach(function(user) { %>
+                <li>StudentId: <%= user.id %></li>
+                <li>FullName: <%= user.name %></li>
+                <li>Subject: <%= user.subject %></li>
+                <li>Grade: <%= user.grade %></li>   
+    </ul>
+    <br>
+    <form method="POST" action="/" enctype="application/x-www-form-urlencoded">
+        <input type="hidden" name="_method" value="DELETE">
+        <% users.forEach(function(user) { %>
+            <input name="id" type="hidden" value="<%= user.id %>">
+        <% }); %>    
+        <button type="submit">Delete</button>
+    </form>
+    <br>
+    <form action="/update">
+        <% users.forEach(function(user) { %>
+            <input name="id" type="hidden" value="<%= user.id %>">
+        <% }); %>
+        <button type="submit">Update</button>
+    </form>
+    <% }); %>
+    <% } else{ %>  
+        <p>no one</p>
+    <% } %>
+</body>
+</html>
